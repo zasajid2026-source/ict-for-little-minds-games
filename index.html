@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ICT for Little Minds, Grade 1 — Chapter Games</title>
+<style>
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{font-family:"Comic Neue","Baloo 2","Comic Sans MS","Chalkboard SE","Segoe UI Rounded",ui-rounded,system-ui,sans-serif;
+    background:linear-gradient(180deg,#D6E9FA,#EAF3FC); color:#1E3A4F; min-height:100vh; text-align:center;}
+  body::before, body::after{
+    content:""; position:fixed; left:0; right:0; height:14px; z-index:5; pointer-events:none;
+    background-image:
+      radial-gradient(circle at 10px 7px, #2E7CC4 4.5px, transparent 5px),
+      radial-gradient(circle at 34px 7px, #F5A623 4.5px, transparent 5px),
+      radial-gradient(circle at 58px 7px, #FF7FA5 4.5px, transparent 5px);
+    background-size:72px 14px; background-repeat:repeat-x;
+  }
+  body::before{top:0;} body::after{bottom:0;}
+  header{padding:30px 14px 6px;}
+  .book{font-size:15px; font-weight:800; letter-spacing:2.5px; color:#1F7AC2;}
+  h1{font-size:clamp(26px,7vw,38px); font-weight:800; color:#145A94; margin-top:2px;}
+  .tag{font-size:16.5px; font-weight:700; color:#5A7A88; margin-top:6px;}
+  .hero{width:min(88vw,430px); border-radius:26px; border:4px solid #fff;
+    box-shadow:0 12px 28px rgba(20,80,140,.22); margin:14px auto 4px; display:block;}
+  .wrap{max-width:640px; margin:0 auto; padding:14px;}
+  .unit{font-size:15px; font-weight:800; letter-spacing:1.5px; color:#fff; background:#1F7AC2;
+    border-radius:999px; padding:8px 16px; margin:18px 0 12px;}
+  .unit small{display:block; font-size:12.5px; letter-spacing:.5px; font-weight:700; color:#D6E9FA;}
+  .grid{display:grid; grid-template-columns:repeat(2,1fr); gap:12px;}
+  @media(min-width:520px){.grid{grid-template-columns:repeat(3,1fr);}}
+  .card{background:#fff; border-radius:20px; padding:16px 10px 14px; box-shadow:0 6px 16px rgba(20,80,140,.14);
+    text-decoration:none; color:#1E3A4F; display:block; border:3px solid #EAF3FC;
+    transition:transform .15s;}
+  .card:active{transform:scale(.97);}
+  .card .n{font-size:12.5px; font-weight:800; letter-spacing:1.5px; color:#1F7AC2;}
+  .card .t{font-size:17.5px; font-weight:800; line-height:1.2; margin-top:3px; color:#145A94;}
+  .card .play{display:inline-block; margin-top:9px; background:#1F7AC2; color:#fff; font-weight:800;
+    border-radius:999px; padding:7px 18px; font-size:15px; box-shadow:0 4px 0 #145A94;}
+  .card.soon{opacity:.72;}
+  .card .soon-tag{display:inline-block; margin-top:9px; background:#F2F5F7; color:#7A97A5; font-weight:800;
+    border-radius:999px; padding:7px 14px; font-size:13.5px;}
+  footer{padding:8px 14px 30px; font-size:13.5px; font-weight:700; color:#7A97A5; line-height:1.6;}
+  footer .credit{color:#8A6D1C; font-size:13px;}
+</style>
+</head>
+<body>
+<header>
+  <div class="book">ICT FOR LITTLE MINDS — GRADE 1</div>
+  <h1>🎮 Chapter Games</h1>
+  <p class="tag">One game for every chapter — Bolt the robot plays with you!<br>Scan the QR code in your book, then tap your chapter.</p>
+</header>
+<img class="hero" src="img/hero.jpg" alt="Miss Hina, Sara, Ali, Ayesha and Bolt meet technology">
+<div class="wrap" id="wrap"></div>
+<footer>
+  Free to play · No ads · No logins — just play together.<br>
+  <span class="credit">✦ Prepared by: Zulfiqar Ali Sajid ✦</span>
+</footer>
+<script>
+var UNITS = [
+  {name:"UNIT 1", title:"Technology Around Us", chapters:[
+    ["What Is Technology?", true], ["Technology at Home", true], ["Technology at School", true] ]},
+  {name:"UNIT 2", title:"Learning with Games", chapters:[
+    ["My First Game", true], ["Tap, Drag, Match", true], ["Solving Game Puzzles", true], ["My Favourite Game", true] ]},
+  {name:"UNIT 3", title:"Thinking and Solving", chapters:[
+    ["What Is a Problem?", true], ["Finding Solutions", true], ["The Best Solution", true] ]},
+  {name:"UNIT 4", title:"Staying Safe", chapters:[
+    ["Safe or Unsafe?", true], ["The Safe Way", true] ]}
+];
+var wrap = document.getElementById("wrap");
+var cn = 0;
+UNITS.forEach(function(u){
+  var h = document.createElement("div");
+  h.className = "unit";
+  h.innerHTML = u.name + "<small>" + u.title + "</small>";
+  wrap.appendChild(h);
+  var grid = document.createElement("div");
+  grid.className = "grid";
+  wrap.appendChild(grid);
+  u.chapters.forEach(function(c){
+    cn++;
+    var n = cn;
+    if(c[1]){
+      var a = document.createElement("a");
+      a.className = "card"; a.href = "c" + n + ".html";
+      a.innerHTML = '<div class="n">CHAPTER ' + n + '</div><div class="t">' + c[0] +
+        '</div><span class="play">▶ Play!</span>';
+      grid.appendChild(a);
+    } else {
+      var d = document.createElement("div");
+      d.className = "card soon";
+      d.innerHTML = '<div class="n">CHAPTER ' + n + '</div><div class="t">' + c[0] +
+        '</div><span class="soon-tag">Coming soon</span>';
+      grid.appendChild(d);
+    }
+  });
+});
+</script>
+</body>
+</html>
